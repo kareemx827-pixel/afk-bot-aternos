@@ -378,33 +378,7 @@ function createBot() {
     });
 
     bot.loadPlugin(pathfinder);
-bot._client.on('add_resource_pack', (packet) => {
-  const response = {
-    result: 3
-  };
 
-  if (packet && packet.uuid !== undefined) {
-    response.uuid = packet.uuid;
-  } else if (packet && packet.hash !== undefined) {
-    response.hash = packet.hash;
-  }
-
-  bot._client.write('resource_pack_receive', response);
-
-  setTimeout(() => {
-    const loaded = {
-      result: 0
-    };
-
-    if (packet && packet.uuid !== undefined) {
-      loaded.uuid = packet.uuid;
-    } else if (packet && packet.hash !== undefined) {
-      loaded.hash = packet.hash;
-    }
-
-    bot._client.write('resource_pack_receive', loaded);
-  }, 500);
-});
     // Connection timeout - if no spawn in 60s, reconnect
     const connectionTimeout = setTimeout(() => {
       if (!botState.connected) {
